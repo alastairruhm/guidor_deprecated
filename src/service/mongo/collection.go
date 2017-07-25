@@ -19,7 +19,7 @@ func (c *Collection) Connect() {
 // NewCollectionSession get new collection
 func NewCollectionSession(name string) *Collection {
 	var c = Collection{
-		db:   newDBSession(beego.AppConfig.String("DBName")),
+		db:   newDBSession(beego.AppConfig.String("mongodb")),
 		name: name,
 	}
 	c.Connect()

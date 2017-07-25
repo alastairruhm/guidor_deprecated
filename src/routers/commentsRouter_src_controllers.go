@@ -17,16 +17,16 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/alastairruhm/guidor/src/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/alastairruhm/guidor/src/controllers:ObjectController"],
 		beego.ControllerComments{
-			Method: "Get",
-			Router: `/:objectId`,
+			Method: "GetAll",
+			Router: `/`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["github.com/alastairruhm/guidor/src/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/alastairruhm/guidor/src/controllers:ObjectController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method: "Get",
+			Router: `/:objectId`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})

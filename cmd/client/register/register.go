@@ -1,6 +1,9 @@
 package register
 
 import (
+	"context"
+
+	"github.com/alastairruhm/guidor/client"
 	"github.com/op/go-logging"
 	"github.com/spf13/cobra"
 )
@@ -29,11 +32,14 @@ var Cmd = &cobra.Command{
 }
 
 func registerClient(cmd *cobra.Command, args []string) {
-	client := client.DBMClient{Host: hostname}
-	token, err := client.Register(hostname, "alastair", "mysql")
+	c := client.NewClient(nil)
+	ctx := context.TODO()
+	i := client.Instance{}
+
+	instance, _, err := c.Instances.Register(ctx, i)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	log.Info("%+v\n", token)
+	log.Info("%+v\n", instance.Token)
 }

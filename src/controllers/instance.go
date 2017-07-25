@@ -18,6 +18,7 @@ type InstanceController struct {
 func (i *InstanceController) Create() {
 	var instance models.Instance
 	json.Unmarshal(i.Ctx.Input.RequestBody, &instance)
+	beego.Debug("%+v", &instance)
 	instance, err := models.CreateInstance(instance)
 	if err != nil {
 		i.CustomAbort(http.StatusBadRequest, "error create instance")
@@ -27,5 +28,5 @@ func (i *InstanceController) Create() {
 }
 
 func (i *InstanceController) GetAll() {
-
+	i.ServeJSON()
 }

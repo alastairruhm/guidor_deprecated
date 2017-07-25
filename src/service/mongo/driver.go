@@ -6,7 +6,7 @@ var maxPool int
 
 func init() {
 	var err error
-	maxPool, err = beego.AppConfig.Int("DBMaxPool")
+	maxPool, err = beego.AppConfig.Int("mongodbMaxPool")
 	if err != nil {
 		// todo: panic!!!
 		// panic(err)
@@ -15,9 +15,10 @@ func init() {
 	// init method to start db
 	checkAndInitServiceConnection()
 }
+
 func checkAndInitServiceConnection() {
 	if service.baseSession == nil {
-		service.URL = beego.AppConfig.String("DBPath")
+		service.URL = beego.AppConfig.String("mongodburl")
 		err := service.New()
 		if err != nil {
 			// todo: panic!!!
