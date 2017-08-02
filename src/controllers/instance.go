@@ -12,7 +12,7 @@ import (
 
 // Operations about Users
 type InstanceController struct {
-	beego.Controller
+	APIController
 }
 
 func (i *InstanceController) Create() {
@@ -23,8 +23,9 @@ func (i *InstanceController) Create() {
 	if err != nil {
 		i.CustomAbort(http.StatusBadRequest, "error create instance")
 	}
-	i.Data["json"] = &instance
-	i.ServeJSON()
+	// i.Data["json"] = &instance
+	// i.ServeJSON()
+	i.data = &instance
 }
 
 func (i *InstanceController) GetAll() {

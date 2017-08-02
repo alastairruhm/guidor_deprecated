@@ -1,8 +1,9 @@
-package client
+package main
 
 import (
 	"fmt"
 	"os"
+	"os/user"
 
 	"github.com/alastairruhm/guidor/cmd/client/backup"
 	"github.com/alastairruhm/guidor/cmd/client/register"
@@ -27,7 +28,12 @@ var rootFlags struct {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&rootFlags.configFile, "config", "c", "guidor.toml", "configuration file, default is guidor.toml")
+	dir, err := GetUserHomeDir()
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+	rootCmd.PersistentFlags().StringVarP(&rootFlags.configFile, "config", "c", dir+"/guidor.toml", "configuration file, default is guidor.toml")
 }
 
 var rootCmd = &cobra.Command{
@@ -79,4 +85,13 @@ func initLog() {
 	//backendLogFileLeveled.SetLevel(logging.INFO, "")
 
 	logging.SetBackend(backendLogFileFormatter, backendStdoutFormatter)
+}
+
+// GetUserHomeDir retrieve home dir for current user
+func GetUserHomeDir() (string, error) {
+	user, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	return user.HomeDir, nil
 }

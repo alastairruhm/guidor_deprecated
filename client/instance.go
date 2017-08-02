@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	instancesBasePath = "v1/instances"
+	instancesBasePath = "/api/v1/instances"
 
 	// ActionInProgress is an in progress action status
 	ActionInProgress = "in-progress"
@@ -34,24 +34,23 @@ var _ InstancesService = &InstancesServiceOp{}
 
 type instancesRoot struct {
 	Instances []Instance `json:"instances"`
-	Links     *Links     `json:"links"`
 }
 
 type instanceRoot struct {
-	Event *Instance `json:"instance"`
+	Instance *Instance `json:"data"`
 }
 
 // Instance represents a database instance
 type Instance struct {
-	ID          string    `json:"id"`
-	Token       string    `json:"token" bson:"token"`
-	IP          string    `json:"ip" bson:"ip"`
-	Hostname    string    `json:"hostname" bson:"hostname"`
-	DbType      string    `json:"db_type" bson:"db_type"`
-	DbVersion   string    `json:"db_version" bson:"db_version"`
-	ServiceName string    `json:"service" bson:"service_name"`
-	CreatedAt   time.Time `json:"created_at,omitempty" bson:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at,omitempty" bson:"updated_at"`
+	ID        string    `json:"id"`
+	Token     string    `json:"token" bson:"token"`
+	IP        string    `json:"ip" bson:"ip"`
+	Hostname  string    `json:"hostname" bson:"hostname"`
+	DbType    string    `json:"db_type" bson:"db_type"`
+	DbVersion string    `json:"db_version" bson:"db_version"`
+	DbName    string    `json:"db_name" bson:"db_name"`
+	CreatedAt time.Time `json:"created_at,omitempty" bson:"created_at"`
+	UpdatedAt time.Time `json:"updated_at,omitempty" bson:"updated_at"`
 }
 
 // List all instances
@@ -97,7 +96,7 @@ func (s *InstancesServiceOp) Get(ctx context.Context, id int) (*Instance, *Respo
 		return nil, resp, err
 	}
 
-	return root.Event, resp, err
+	return root.Instance, resp, err
 }
 
 // Register an instance by ID.
@@ -118,7 +117,7 @@ func (s *InstancesServiceOp) Register(ctx context.Context, i Instance) (*Instanc
 		return nil, resp, err
 	}
 
-	return root.Event, resp, err
+	return root.Instance, resp, err
 }
 
 func (a Instance) String() string {

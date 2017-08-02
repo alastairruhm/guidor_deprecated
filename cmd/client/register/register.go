@@ -32,14 +32,23 @@ var Cmd = &cobra.Command{
 }
 
 func registerClient(cmd *cobra.Command, args []string) {
+
 	c := client.NewClient(nil)
 	ctx := context.TODO()
-	i := client.Instance{}
+	i := client.Instance{
+		IP:        "10.34.50.178",
+		Hostname:  "test",
+		DbType:    "mysql",
+		DbVersion: "5.5",
+		DbName:    "test",
+	}
 
 	instance, _, err := c.Instances.Register(ctx, i)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	log.Info("%+v\n", instance.Token)
+	// fmt.Println(1)
+	log.Info("Token: ", (*instance).Token)
+	// log.Info("%+v", instance)
 }

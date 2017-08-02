@@ -20,7 +20,8 @@ import (
 
 const (
 	libraryVersion = "1.0.0"
-	defaultBaseURL = "http://api.guidor.com/"
+	// defaultBaseURL = "http://api.guidor.com/"
+	defaultBaseURL = "http://localhost:8080/"
 	userAgent      = "guidor/" + libraryVersion
 	mediaType      = "application/json"
 
@@ -91,7 +92,7 @@ type Response struct {
 	Links *Links
 
 	// Monitoring URI
-	Monitor string
+	// Monitor string
 
 	Rate
 }
