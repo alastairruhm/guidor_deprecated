@@ -71,9 +71,6 @@ func (s *InstancesServiceOp) List(ctx context.Context, opt *ListOptions) ([]Inst
 	if err != nil {
 		return nil, resp, err
 	}
-	if l := root.Links; l != nil {
-		resp.Links = l
-	}
 
 	return root.Instances, resp, err
 }
